@@ -1,24 +1,25 @@
 ﻿#include <iostream>
 #include <locale.h>
 
-class Smart_array {
+class SmartArray {
 public:
 
-    Smart_array(int size) {
+    SmartArray(const SmartArray&) = delete;
+    SmartArray& operator=(const SmartArray&) = delete;
+
+    SmartArray(int size) {
         array = new int[size] {};
         size_ = size;
     }
-    ~Smart_array() {
+
+    ~SmartArray() {
         delete[] array;
         array = nullptr;
         delete[] array_new;
         array_new = nullptr;
     }
 
-    void add_element(int number) {
-        number_ = number;
-        element();
-    }
+    void add_element(int number);
 
     int get_element(int array_out) {
         return array[array_out];
@@ -29,14 +30,12 @@ private:
     int* array_new = nullptr;
     int size_ = 1;
     int num_array = 0;
-    int number_ = 0;
+
     // Изменение размера массива
     void changing_array();
-    void element();
-    
 };
 
-void Smart_array::changing_array() {
+void SmartArray::changing_array() {
 
     int size_new = 2 * size_;
     array_new = new int[size_new] {};
@@ -52,23 +51,21 @@ void Smart_array::changing_array() {
     array_new = nullptr;
 }
 
-void Smart_array::element() {
+void SmartArray::add_element(int number) {
 
     if (num_array == size_) {
         changing_array();
     }
 
-    array[num_array] = number_;
+    array[num_array] = number;
     num_array++;
 }
-
-
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
     try {
-        Smart_array arr(5);
+        SmartArray arr(5);
         arr.add_element(1);
         arr.add_element(4);
         arr.add_element(155);
