@@ -15,8 +15,10 @@ public:
     ~SmartArray() {
         delete[] array;
         array = nullptr;
-        delete[] array_new;
-        array_new = nullptr;
+        if (array_new != nullptr) {
+            delete[] array_new;
+            array_new = nullptr;
+        }
     }
 
     void add_element(int number);
